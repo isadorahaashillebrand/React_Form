@@ -1,5 +1,5 @@
 import React from 'react';
-import './MovieForm.css';
+import 'src/Components/MovieForm.css';
 
 class MovieFrom extends React.Component {
   constructor(props) {
@@ -94,8 +94,9 @@ class MovieFrom extends React.Component {
               <div className="form-data">
                 <div>
                   <label className="label-two" htmlFor="comment">
-                    Why do you like this movie? What made you stand out? 
-                    Leave a comment here:
+                    <p>Why do you like this movie?</p> 
+                    <p>What made you stand out? </p>
+                    <p>Leave a comment here:</p>
                   </label>
                 </div>
                 <div>
