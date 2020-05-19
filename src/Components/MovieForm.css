@@ -1,0 +1,27 @@
+.MovieForm {
+    width: 800px;
+    height: 800px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  
+.MovieForm h1 {
+    text-align: center;
+  }
+  
+  .form-data {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+  }
+  
+  .MovieForm .form-data label {
+    display: inline-block;
+    width: 200px;
+    margin-right: 10px;
+    text-align: right;
+  }
+  
+  .MovieForm .form-data input:not([type='submit']) {
+    flex-grow: 1;
+  }

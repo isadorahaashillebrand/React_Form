@@ -1,27 +1,27 @@
 import React from 'react';
+import './MovieForm.css';
 
-class MovieForm extends React.Component {
+class MovieFrom extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movieName: '',
-      moviePoster: '',
+      title: '',
+      poster: '',
       comment: '',
     };
   }
 
-  onChange = (e) => {
+  onChange = (event) => {
+    let { name, value } = event.target;
     this.setState({
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
-  submitForm = (e) => {
-    e.preventDefault();
-  };
+  submitForm = (event) => {
+    event.preventDefault();
+    const url = `https://post-a-form.herokuapp.com/api/movies`;
 
-  handleSubmit = (e) => {
-    const url = 'https://post-a-form.herokuapp.com/api/movies/';
     const config = {
       method: 'POST',
       headers: {
@@ -29,70 +29,99 @@ class MovieForm extends React.Component {
       },
       body: JSON.stringify(this.state),
     };
+
+    console.log(config.body);
     fetch(url, config)
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
           alert(res.error);
         } else {
-          alert('Movie added');
+          console.log(res);
+          alert('Movie successfully added!');
+          this.setState({
+            title: '',
+            poster: '',
+            comment: '',
+          });
         }
       })
-      .catch((e) => {
-        console.error(e);
-        alert('Movie not added.');
+      .catch((event) => {
+        console.error(event);
+        alert(
+          'Movie not added, try again later.',
+        );
       });
   };
 
   render() {
     return (
-      <div className="MovieForm">
-        <h1>Your Fav Movie</h1>
-        <form onSubmit={this.handleSubmit}>
-          <fieldset>
-            <legend>Information</legend>
-            <div className="form-data">
-              <label htmlFor="movieName"> Movie Name </label>
-              <input
-                type="text"
-                id="movieName"
-                name="movieName"
-                onChange={this.onChange}
-                value={this.state.movieName}
-              />
-            </div>
+      <div>
+        <div className="MovieFrom">
+          <h1> Your Favorite Movie </h1>
+          <form onSubmit={this.submitForm}>
+            <fieldset className="fieldset">
+              <div className="form-data">
+                <label className="label-one" htmlFor="title">
+                  Movie Name:  
+                </label>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  placeholder="Movie name"
+                  onChange={this.onChange}
+                  value={this.state.title}
+                  required
+                />
+              </div>
 
-            <div className="form-data">
-              <label htmlFor="moviePoster"> Movie Poster </label>
-              <input
-                type="text"
-                id="moviePoster"
-                name="moviePoster"
-                onChange={this.onChange}
-                value={this.state.moviePoster}
-              />
-            </div>
+              <div className="form-data">
+                <label className="label-one" htmlFor="poster">
+                  Poster:  
+                </label>
+                <input
+                  type="text"
+                  id="poster"
+                  name="poster"
+                  placeholder="Poster url"
+                  onChange={this.onChange}
+                  value={this.state.poster}
+                  required
+                />
+              </div>
 
-            <div className="form-data">
-              <label htmlFor="comment">
-                Why do you like this movie? What made you stand out? etc.
-              </label>
-              <textarea
-                name="comment"
-                id="comment"
-                onChange={this.onChange}
-                value={this.state.comment}
-              />
-            </div>
-            <hr />
-            <div className="form-data">
-              <input onClick={this.handleSubmit} type="submit" value="Send" />
-            </div>
-          </fieldset>
-        </form>
+              <div className="form-data">
+                <div>
+                  <label className="label-two" htmlFor="comment">
+                    Why do you like this movie? What made you stand out? 
+                    Leave a comment here:
+                  </label>
+                </div>
+                <div>
+                  <textarea
+                    rows="5"
+                    cols="55"
+                    className="textarea"
+                    id="comment"
+                    name="comment"
+                    placeholder="Your comment here"
+                    onChange={this.onChange}
+                    value={this.state.comment}
+                    required
+                  />
+                </div>
+              </div>
+              <hr />
+              <div className="form-data">
+                <input type="submit" value="Send" />
+              </div>
+            </fieldset>
+          </form>
+        </div>
       </div>
     );
   }
 }
 
-export default MovieForm;
+export default MovieFrom;

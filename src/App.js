@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import MovieForm from './Components/MovieForm';
 
 function App() {
